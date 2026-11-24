@@ -11,15 +11,6 @@ int count_ones(uint32_t word) {
     return count; 
 }
 
-// test data
-//0000 0000 1100 0101 
-//0001 1111 1111 1111 1111 1111 
-
-// 0000 0000 1100 0101
-// 0000 0000 0001 1100
-// 0000 0000 0000 0100
-
-
 
 uint32_t encode_arinc429(uint8_t label, uint32_t data, uint8_t ssm) {
     uint32_t word = 0;
@@ -43,18 +34,6 @@ uint32_t encode_arinc429(uint8_t label, uint32_t data, uint8_t ssm) {
 }
 
 
-// testing label word decode for example packet is 0x3103
-
-// 0011 0001 0000 0011
-// now mask with 0xFF to isolate
-// 0011 0001 0000 0011
-// 0000 0000 1111 1111
-//now & operator
-// 0000 0000 0000 0011
-//HELP WHY DID WE GET THE SMM VALUE BAHAHAHAH LMAO
-
-
-
 void decode_arinc429(uint32_t word) {
 
    uint32_t packetVal = count_ones(word);
@@ -66,9 +45,9 @@ void decode_arinc429(uint32_t word) {
       return;
    }
 
-  uint8_t  label = word & 0xFF;            // 8 bits -> uint8_t is perfect!
-  uint32_t data  = (word >> 8) & 0x1FFFFF; // 21 bits -> MUST be uint32_t!
-  uint8_t  ssm   = (word >> 29) & 0x03;    // 2 bits -> uint8_t is perfect!
+  uint8_t  label = word & 0xFF;           
+  uint32_t data  = (word >> 8) & 0x1FFFFF; 
+  uint8_t  ssm   = (word >> 29) & 0x03;    
 
   printf("Parity OK! Unpacked Packet:\n");
 printf("Label: 0x%02X\n", label);
