@@ -1,0 +1,22 @@
+name: C Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Compile all C modules with strict warnings
+        run: |
+          for file in *.c; do
+            echo "Compiling $file..."
+            gcc -Wall -Wextra -Werror -std=c11 "$file" -o "${file%.c}"
+          done
