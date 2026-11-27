@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdint.h>
-#include <windows.h> 
+
+#ifdef _WIN32
+  #include <windows.h>
+  #define SLEEP_MS(ms) Sleep(ms)
+#else
+  #include <unistd.h>
+  #define SLEEP_MS(ms) usleep((ms) * 1000)
+#endif
+
 
 #define STALL_BIT     0
 #define OVERSPEED_BIT 1
@@ -80,7 +88,7 @@ int main() {
 
     printf("Speed: %u kts | Status bits: %u\n", airbus.airspeed, airbus.status); 
 
-    Sleep(500);
+    sleep(500);
   }
 
   return 0;
