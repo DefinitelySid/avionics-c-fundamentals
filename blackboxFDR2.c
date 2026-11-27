@@ -68,7 +68,7 @@ void fdr_init(BlackBox *fdr) {
 void fdr_push(BlackBox *fdr, FDRdata frame) {
 
    if (fdr->is_frozen == 1) {
-    printf("[FDR LOCKED] Ignoring post-crash frame #%u\n");
+    printf("[FDR LOCKED] Ignoring post-crash frame #%u\n", frame.frame_id);
     return;
    }
    
